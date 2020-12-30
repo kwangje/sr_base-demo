@@ -95,7 +95,7 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
     # Compute the 2D projections. You could also project to another number of dimensions (e.g. 
     # for a 3D plot) or use a different different dimensionality reduction like PCA or TSNE.
     reducer = UMAP(**kwargs)
-    projs = reducer.fit_transform(embeds)
+    projs = reducer.fit_transform(embeds) # print(projs.shape)
     
     # Draw the projections
     speakers = np.array(speakers)
@@ -104,17 +104,18 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
         speaker_projs = projs[speakers == speaker]
         marker = "o" if markers is None else markers[i]
         label = speaker if legend else None
-        ax.scatter(*speaker_projs.T, c=[colors[i]], marker=marker, label=label)
+        ax.scatter(*speaker_projs.T, c=[colors[i]], marker=marker, 
+                   label=label, alpha=1.0, edgecolors='none')
 
     if legend:
-        ax.legend(title="Speakers", ncol=2)
+        ax.legend(title="Speakers", ncol=2, loc="upper left")
     ax.set_title(title)
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.set_aspect("equal")
+    ax.set_aspect("auto")
     
     return projs
-    
+
 
 def interactive_diarization(similarity_dict, wav, wav_splits, x_crop=5, show_time=False):
     fig, ax = plt.subplots()
