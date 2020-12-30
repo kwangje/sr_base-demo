@@ -90,7 +90,7 @@ def plot_histograms(all_samples, ax=None, names=None, title=""):
 def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legend=True, 
                      title="", **kwargs):
     if ax is None:
-        _, ax = plt.subplots(figsize=(8, 8))
+        _, ax = plt.subplots(figsize=(5, 5))
         
     # Compute the 2D projections. 
     reducer = UMAP(**kwargs)
@@ -103,7 +103,7 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
         marker = "o" if markers is None else markers[i]
         label = speaker if legend else None
         ax.scatter(*speaker_projs.T, c=[colors[i]], marker=marker, 
-                   label=label, alpha=0.8, edgecolors='face')
+                   label=label, alpha=1.0, edgecolors=None)
 
     if legend:
         ax.legend(title="Speakers", ncol=2, loc="upper left")
