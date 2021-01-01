@@ -6,6 +6,9 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import numpy as np
 
+import matplotlib as mpl
+mpl.rcParams['axes.unicode_minus'] = False # 유니코드 깨짐현상 해결
+plt.rcParams["font.family"] = 'NanumGothic'
 
 # The demos are ordered so as to make the explanations in the comments consistent. If you only 
 # care about running the code, then you don't have to follow that order.
@@ -23,7 +26,9 @@ encoder = VoiceEncoder()
 # We'll use a smaller version of the dataset LibriSpeech test-other to run our examples. This 
 # smaller dataset contains 10 speakers with 10 utterances each. N.B. "wav" in variable names stands
 # for "waveform" and not the wav file extension.
-wav_fpaths = list(Path("audio_data", "librispeech_test-other").glob("**/*.flac"))
+# wav_fpaths = list(Path("audio_data", "librispeech_test-other").glob("**/*.flac"))
+wav_fpaths = list(Path("audio_data", "iptv_uttr", "sample2").glob("**/*.wav"))
+
 # Group the wavs per speaker and load them using the preprocessing function provided with 
 # resemblyzer to load wavs in memory. It normalizes the volume, trims long silences and resamples 
 # the wav to the correct sampling rate.
@@ -79,4 +84,6 @@ plot_similarity_matrix(spk_sim_matrix, labels_a, labels_b, axs[1, 0],
 plot_histograms((spk_sim_matrix[mask], spk_sim_matrix[np.logical_not(mask)]), axs[1, 1],
                 ["Same speaker", "Different speakers"], 
                 "Normalized histogram of similarity\nvalues between speakers")
-plt.show()
+
+# plt.show()
+plt.savefig('result.png')   
