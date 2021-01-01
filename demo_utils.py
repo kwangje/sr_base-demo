@@ -90,10 +90,10 @@ def plot_histograms(all_samples, ax=None, names=None, title=""):
 def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legend=True, 
                      title="", **kwargs):
     if ax is None:
-        _, ax = plt.subplots(figsize=(10, 5))
+        _, ax = plt.subplots(figsize=(8, 8))
         
     # Compute the 2D projections. 
-    reducer = UMAP(**kwargs)
+    reducer = UMAP(min_dist=0.1, **kwargs)
     projs = reducer.fit_transform(embeds)  # projs.shape
     
     speakers = np.array(speakers)
