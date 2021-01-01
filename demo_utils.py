@@ -93,7 +93,7 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
         _, ax = plt.subplots(figsize=(8, 8))
         
     # Compute the 2D projections. 
-    reducer = UMAP(n_neighbors=30, min_dist=0.2, **kwargs)
+    reducer = UMAP(**kwargs)
     projs = reducer.fit_transform(embeds)  # projs.shape
     
     speakers = np.array(speakers)
