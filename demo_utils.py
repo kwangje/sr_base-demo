@@ -93,7 +93,7 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
         _, ax = plt.subplots(figsize=(8, 8))
         
     # Compute the 2D projections. 
-    reducer = UMAP(min_dist=0.1, **kwargs)
+    reducer = UMAP(n_neighbors=30, min_dist=0.2, **kwargs)
     projs = reducer.fit_transform(embeds)  # projs.shape
     
     speakers = np.array(speakers)
@@ -103,7 +103,7 @@ def plot_projections(embeds, speakers, ax=None, colors=None, markers=None, legen
         marker = "o" if markers is None else markers[i]
         label = speaker if legend else None
         ax.scatter(*speaker_projs.T, c=[colors[i]], marker=marker, 
-                   label=label, alpha=0.8, edgecolors=None)
+                   label=label, alpha=0.6)
 
     if legend:
         ax.legend(title="Speakers", ncol=2, loc="upper left")
