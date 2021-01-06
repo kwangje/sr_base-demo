@@ -57,36 +57,3 @@ if __name__ == '__main__':
     # if wav_file is not None:
     #    audio_file = AudioSegment.from_wav(wav_file)
     #    st.write(type(audio_file))
-
-@st.cache(allow_output_mutation=True)
-def file_selector(folder_path='./audio_data/iptv_uttr/test'):
-    filenames = os.listdir(folder_path)
-    selected_filename = st.selectbox('Select a test audio file', filenames)
-    return os.path.join(folder_path, selected_filename)
-
-
-def plot_projection_adv(embeds, speakers, ax=None, colors=None, markers=None, legend=True, 
-                        title="", **kwargs):
-    if ax is None:
-        _, ax = plt.subplots(figsize=(10, 10))
-        
-    reducer = UMAP(n_neighbors=30, min_dist=0.2, **kwargs) # 2D projections
-    projs = reducer.fit_transform(embeds)  # projs.shape
-    speakers = np.array(speakers)
-    
-    for i, speaker in enumerate(np.unique(speakers)):
-        speaker_projs = projs[speakers == speaker]
-        marker = "o" if markers is None else markers[i]
-        label = speaker if legend else None
-        ax.scatter(*speaker_projs.T, cmap=plt.cm.Blues, 
-                    marker=marker, label=label, alpha=0.7)
-
-    if legend:
-        ax.legend(title="Speakers", ncol=2, loc="upper right")
-    ax.set_title(title)
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_aspect("auto")
-    
-    return projs
-
