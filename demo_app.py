@@ -27,7 +27,7 @@ if __name__ == '__main__':
         st.text('test case')
 
         df = st.cache(pd.read_excel)(
-            './audio_data/IPTV 음성검색_TC.xlsx', nrows=140)
+            './audio_data/IPTV_TC.xlsx', nrows=140)
         st.dataframe(df[df.columns[:4]])
 
         file_to_be_uploaded = st.file_uploader(
