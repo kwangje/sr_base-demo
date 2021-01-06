@@ -16,28 +16,38 @@ import matplotlib as mpl
 mpl.rcParams['axes.unicode_minus'] = False
 plt.rcParams["font.family"] = 'NanumGothic'
 
-if __name__ == '__main__':
-    st.title('Speaker Identification Demo')
 
-    activities = ["Data", "About"]
+def main():
+    st.title('화자식별 Demo App')
+    st.text("Build with Streamlit and OpenCV")
+
+    activities = ["데이터", "Demo"]
     choice = st.sidebar.selectbox("Select Activty", activities)
 
-    if choice == 'Data':
-        st.subheader("dataset")
-        st.text('test case')
+
+    if choice == '데이터':
+        st.subheader("IPTV 음성검색 데이터")
+        st.text('Noise 없는 실험실 녹음버전이며, 음성길이는 평균 5초 이내인 짧은 발화문입니다.')
 
         df = st.cache(pd.read_excel)(
-            './audio_data/IPTV_TC.xlsx', nrows=140)
+            './audio_data/IPTV_TC.xlsx', nrows=140, engine='openpyxl')
         st.dataframe(df[df.columns[:4]])
 
+        st.subheader("데이터 가공 예시")
         file_to_be_uploaded = st.file_uploader(
-            "Choose an audio...", type="wav")
+            "테스트할 Audio 파일 불러오기", type="wav")
+        
         if file_to_be_uploaded is not None:
             audio_bytes = file_to_be_uploaded.read()
             st.audio(audio_bytes, format='audio/mp3')
-
-        st.write(speaker_wavs.get('김나영')[:3])
-
+        
+        st.write(os.path.abspath(file_to_be_uploaded)
+        #test_wav = preprocess_wav(test_path)
+        
+        #encoder = VoiceEncoder()
+        #wavs = np.array(list(map(preprocess_wav, tqdm(wav_fpaths, "Preprocessing wavs", len(wav_fpaths), position=0)
+        #st.write(speaker_wavs.get('김나영')[:3])
+        
     elif choice == 'Demo':
         #st.subheader("Necessary for two libraries")
         st.text('Compute the similarity between spk embed and utt embed.')
@@ -47,13 +57,6 @@ if __name__ == '__main__':
             "Others: [Resemblyzer](https://github.com/resemble-ai/Resemblyzer/)")
         st.success(":bowtie:")
 
-    # generator = instantiate_generator()
-    # filename = file_selector()
-    # ipd.Audio(filename)
-    # st.write('selected `%s`' % filename)
 
-    # wav_file = st.file_uploader("Upload Audio", type=['wav', 'flac', 'mp3'])
-
-    # if wav_file is not None:
-    #    audio_file = AudioSegment.from_wav(wav_file)
-    #    st.write(type(audio_file))
+if __name__ == '__main__':
+		main()	
