@@ -1,0 +1,6 @@
+pip install ipykernel
+
+python -m ipykernel install --user --name [virtualEnv] --display-name "[displayKenrelName]"
+
+# /home/kwangje/Desktop/AM-SincNet/timit  
+python timit_preparation.py /home/kwangje/Desktop/AM-SincNet/timit /home/kwangje/Desktop/AM-SincNet/timit/output /home/kwangje/Desktop/AM-SincNet/data_lists/TIMIT_all.scp

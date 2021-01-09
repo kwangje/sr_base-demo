@@ -24,7 +24,7 @@ import plotly.express as px
 
 @st.cache(suppress_st_warning=True)
 def umap_vis():
-    wav_fpaths = list(Path("audio_data", "iptv_uttr", "sample_wt_label").glob("**/*.wav"))
+    wav_fpaths = list(Path("audio_data", "iptv_uttr", "sample1_wt_label").glob("**/*.wav"))
     speakers = list(map(lambda wav_fpath: wav_fpath.parent.stem, wav_fpaths))
     wavs = np.array(list(map(preprocess_wav, stqdm(wav_fpaths, "Preprocessing wavs", len(wav_fpaths), position=0))))
     st.success('Finished preprocessing')
